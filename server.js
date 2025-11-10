@@ -1,10 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const app = express();
 const helmet = require('helmet');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(express.static('public'));
 
 // Add security headers
 app.use(helmet());
@@ -26,5 +29,5 @@ app.get('/', (req, res) => {
 
 // Run the server
 app.listen(PORT, () => {
-  console.log(`GUIDED site running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
