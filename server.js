@@ -1,33 +1,22 @@
-require('dotenv').config();
 const express = require('express');
-const app = express();
-const helmet = require('helmet');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('public'));
+// Serve files from /public (CSS, images, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Add security headers
-app.use(helmet());
-
-// Tell Express where to find CSS/images
-app.use('/public', express.static(path.join(__dirname, 'public')));
-
-// Set EJS as view engine
+// Use EJS templates from /views
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Home page
 app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'GUIDED',
-    slogan: 'The Path Is Yours.'
-  });
+  res.render('index', { title: 'GUIDED' });
 });
 
-// Run the server
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`GUIDED site running on port ${PORT}`);
 });
